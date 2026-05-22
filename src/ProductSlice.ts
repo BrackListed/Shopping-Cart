@@ -43,9 +43,11 @@ const cartSlice =  createSlice({
     reducers: {
         addToCart: (state, action) => {
             state.cart.push(action.payload)
+            localStorage.setItem("cart-storage", JSON.stringify(state.cart))
         },
         removeFromCart: (state, action) => {
             state.cart = state.cart.filter((c) => c.id !== action.payload)
+            localStorage.setItem("cart-storage", JSON.stringify(state.cart))
         }
     }
 })
