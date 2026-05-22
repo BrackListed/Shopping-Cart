@@ -1,10 +1,20 @@
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import type { RootState } from "./Store";
 import { ArrowLeft } from 'lucide-react';
+import { removeFromCart } from "./ProductSlice";
+
+
+interface ProductType {
+    id: number;
+    name: string;
+    img: string;
+    price: number;
+}
 
 export function Cart(){
     const userCart = useSelector((state: RootState) => state.Cart.cart)
+    const dispatch = useDispatch()
     return(
         <div id = "container" className="w-full h-screen overflow-hidden flex flex-col bg-white text-zinc-900">
             <div id = "header" className="flex justify-between px-6 md:px-12 items-center border-b bg-zinc-900 border-zinc-100">
@@ -16,27 +26,32 @@ export function Cart(){
             <div className="w-full px-6 md:px-12 mt-12">
                 <h1 className="text-3xl font-bold tracking-tight text-zinc-900 border-b border-zinc-100 pb-5">Review your items</h1>
                 <div id = "actual-product-container">
-                    {/* {userCart.length <= 0 && <div id = "if-no-product-placeholder">
+                    {userCart.length <= 0 && <div id = "if-no-product-placeholder">
                         <div className="flex flex-col gap-2 w-2xl my-10">
                             <h1 className="text-xl font-semibold text-zinc-900">Your cart is empty</h1>
                             <p className="text-zinc-500 max-w-sm text-sm">You haven't added any products to your cart yet. Head back to Store to add products to cart.</p>
                             <Link to = "/"><button className="mt-2 px-5 py-2.5 bg-zinc-900 hover:bg-zinc-800 text-white font-medium text-sm rounded-lg shadow-sm transition-all cursor-pointer">Browse Shop</button></Link>
                         </div>
-                    </div>} */}
+                    </div>}
 
                     {userCart.map((cartItem) => (
-                        <div id ="actual-product" className="flex items-center gap-5 py-6 border-b border-zinc-100 w-full">
-                            <img src = {cartItem.img} alt = "product-image" className="w-30 h-30 bg-zinc-50 border border-zinc-200/80 rounded-xl justfy-center "></img>
-                            <div id = "name-price" className="flex flex-col gap-3 h-25 justify-start">
-                                <p className="font-bold text-zinc-900 text-base tracking-tight leading-tight">{cartItem.name}</p>
-                                <p className="text-zinc-500 font-medium text-sm">₱{cartItem.price}</p>
+                        <div id ="actual-product" className="flex items-center gap-5 py-6 border-b border-zinc-100 w-full justify-between">
+                            <div className="flex gap-5">
+                                <img src = {cartItem.img} alt = "product-image" className="w-30 h-30 bg-zinc-50 border border-zinc-200/80 rounded-xl justfy-center "></img>
+                                <div id = "name-price" className="flex flex-col gap-3 h-25 justify-start">
+                                    <p className="font-bold text-zinc-900 text-base tracking-tight leading-tight">{cartItem.name}</p>
+                                    <p className="text-zinc-500 font-medium text-sm">₱{cartItem.price}</p>
+                                </div>
                             </div>
+                            <button onClick = {() => {dispatch(removeFromCart(cartItem.id)), console.log(cartItem.id)}}className="text-xs font-semibold tracking-wider text-zinc-400 hover:text-red-500 transition-colors cursor-pointer px-2 py-1 rounded">Remove</button>
+
+
                         </div>
                     ))}
                 </div>
             </div>
-
-
         </div>
+
     )
+
 }
