@@ -34,7 +34,7 @@ const ProductSlice = createSlice({
     initialState: initialProductState,
     reducers: {
         selectProduct: (state, action) => {
-            state.selectedId = action.payload 
+            state.selectedId = action.payload //selected id is equal to the id that was clicked!
         }
     }
 })

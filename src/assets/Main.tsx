@@ -1,6 +1,7 @@
 import { useSelector, useDispatch } from "react-redux"
 import type { RootState } from "../Store"
-import { addToCart } from "../ProductSlice";
+import { addToCart, selectProduct } from "../ProductSlice";
+
 
 interface ProductType {
     id: number;
@@ -17,8 +18,10 @@ type MainProps = {
 }
 
 export function ProductUI({isCartOpen, setisCartOpen, productClicked, setproductClicked}: MainProps) {
+    const selectedId = useSelector((state: RootState) => state.Products.selectedId)
     const dispatch = useDispatch()
     const productList = useSelector((state: RootState) => state.Products.products)
+    const selectedProduct = productList.find((product) => product.id === selectedId)
     return(
     <div>
         {productClicked && 
@@ -26,21 +29,21 @@ export function ProductUI({isCartOpen, setisCartOpen, productClicked, setproduct
             <div className="relative w-full max-w-lg bg-white border border-zinc-200 rounded-xl p-6 shadow-2xl flex flex-col gap-4">
             <button onClick = {() => setproductClicked(false)}className="absolute top-4 right-4 text-zinc-400 hover:text-zinc-600 p-1 rounded-full hover:bg-zinc-100 transition-all cursor-pointer">X </button>
             <div>       
-                <h2 className="text-2xl font-bold text-zinc-950 pr-8 truncate">Product Name</h2>
+                <h2 className="text-2xl font-bold text-zinc-950 pr-8 truncate">{selectedProduct?.name}</h2>
             </div>
 
             <div className="w-full h-72 bg-zinc-50 border border-zinc-100 rounded-lg flex items-center justify-center overflow-hidden">
-                <img src="" className="w-full h-full object-contain p-4" />
+                <img src = {selectedProduct?.img} className="w-full h-full object-contain p-4" />
             </div>
 
             <div className="flex items-center justify-between mt-2 pt-2 border-t border-zinc-100">
-                <span className="text-2xl font-bold text-zinc-900">₱0,000</span>
+                <span className="text-2xl font-bold text-zinc-900">₱{selectedProduct?.price}</span>
                 <button className="px-6 py-3 bg-emerald-600 hover:bg-emerald-500 text-white font-semibold rounded-lg shadow-md transition-all cursor-pointer">Buy Now</button>
             </div>
         </div>
         </div>} 
         <div className="flex gap-3">{productList.map((product: ProductType) => (
-            <div onClick = {() => setproductClicked(true)}className="w-64 bg-white border border-zinc-200 rounded-lg p-4 mx-5 shadow-sm flex flex-col gap-3 hover:cursor-pointer">
+            <div onClick = {() => {setproductClicked(true), dispatch(selectProduct(product.id))}}className="w-64 bg-white border border-zinc-200 rounded-lg p-4 mx-5 shadow-sm flex flex-col gap-3 hover:cursor-pointer">
                 <div className="w-full h-48 bg-zinc-100 rounded flex items-center justify-center overflow-hidden">
                     <img src = {product.img} className="w-full h-full object-cover" />
                 </div>
