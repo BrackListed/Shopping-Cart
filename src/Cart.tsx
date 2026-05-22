@@ -5,12 +5,6 @@ import { ArrowLeft } from 'lucide-react';
 import { removeFromCart } from "./ProductSlice";
 
 
-interface ProductType {
-    id: number;
-    name: string;
-    img: string;
-    price: number;
-}
 
 export function Cart(){
     const userCart = useSelector((state: RootState) => state.Cart.cart)
