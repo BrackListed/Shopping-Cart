@@ -16,14 +16,22 @@ const StoreProducts: ProductType[] = [
     {id: 5, name: "School Bag", img: "Products/School_Bag.png", price: 4500},
 ]
 
-const initialState = {
-    initialState: StoreProducts,
+const userCart: ProductType[] = [
+    
+]
+
+const initialProductState = {
+    products: StoreProducts,
     selectedId: 0
+}
+
+const initialCartState = {
+    cart: userCart
 }
 
 const ProductSlice = createSlice({
     name: "Product",
-    initialState,
+    initialState: initialProductState,
     reducers: {
         selectProduct: (state, action) => {
             state.selectedId = action.payload 
@@ -31,7 +39,20 @@ const ProductSlice = createSlice({
     }
 })
 
+const cartSlice =  createSlice({
+    name: "Cart",
+    initialState: initialCartState,
+    reducers: {
+        addToCart: (state, action) => {
+            state.cart.push(action.payload)
+        }
+    }
+})
+
 
 export const {selectProduct} = ProductSlice.actions
+export const {addToCart} = cartSlice.actions
 
-export default ProductSlice.reducer
+export const productReducer = ProductSlice.reducer
+export const cartReducer = cartSlice.reducer
+

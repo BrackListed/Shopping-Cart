@@ -1,8 +1,8 @@
 @import "tailwindcss";
 body {
   
-  background-color: #f1f5f9; /* Slate gray with a cool blue undertone */
-  color: #0f172a;            /* Dark slate for high-contrast text */
+  background-color: #f1f5f9; 
+  color: #0f172a;            
   font-family: system-ui, -apple-system, sans-serif;
   -webkit-font-smoothing: antialiased;
 }
