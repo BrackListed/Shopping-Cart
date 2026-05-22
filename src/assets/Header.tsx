@@ -1,11 +1,9 @@
 import type { RootState } from '../Store';
 import { ShoppingCart, Search } from 'lucide-react'
 import { useSelector } from 'react-redux';
+import { Link } from "react-router-dom";
 
-type HeaderProps = {
-  setisCartOpen: (value: boolean) => void
-}
-export function Header({setisCartOpen}: HeaderProps) {
+export function Header() {
   
   const userCart = useSelector((state: RootState) => state.Cart.cart)
   const cartLength = userCart.length
@@ -16,8 +14,8 @@ export function Header({setisCartOpen}: HeaderProps) {
             <input placeholder = "Search for an item..." className='flex-1 h-10 px-4 rounded-l bg-white text-zinc-900 outline-none focus-visible: ring-4 focus-visible:ring-slate-600'></input>
             <button className='h-10 px-4 bg-orange-500 hover:bg-orange-600 hover:cursor-pointer text-white font-medium rounded-r transition-colors'><Search/></button>
         </div>
-        <div onClick={() => setisCartOpen(true)} className=' relative flex gap-4 text-zinc-300 text-sm font-medium cursor-pointer transition-colors hover:text-white border border-transparent hover:border-zinc-700 rounded px-3 py-1.5'>
-          View Cart <span><ShoppingCart/></span> <div className='absolute -bottom-2 -right-2 bg-orange-500 text-white text-xs font-bold w-5 h-5 flex items-center justify-center rounded-full shadow-sm'>{cartLength}</div>
+        <div className=' relative flex gap-4 text-zinc-300 text-sm font-medium cursor-pointer transition-colors hover:text-white border border-transparent hover:border-zinc-700 rounded px-3 py-1.5'>
+          <Link to = "/Cart">View Cart</Link> <span><ShoppingCart/></span> <div className='absolute -bottom-2 -right-2 bg-orange-500 text-white text-xs font-bold w-5 h-5 flex items-center justify-center rounded-full shadow-sm'>{cartLength}</div>
           </div>
     </div>
   );

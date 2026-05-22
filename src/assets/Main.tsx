@@ -11,19 +11,18 @@ interface ProductType {
 }
 
 type MainProps = {
-    isCartOpen: boolean
-    setisCartOpen: (value: boolean) => void
     productClicked: boolean
     setproductClicked: (value: boolean) => void
 }
 
-export function ProductUI({isCartOpen, setisCartOpen, productClicked, setproductClicked}: MainProps) {
+export function ProductUI({productClicked, setproductClicked}: MainProps) {
     const selectedId = useSelector((state: RootState) => state.Products.selectedId)
     const dispatch = useDispatch()
     const productList = useSelector((state: RootState) => state.Products.products)
     const selectedProduct = productList.find((product) => product.id === selectedId)
     return(
     <div>
+        {/* For when product is clicked, product popup */}
         {productClicked && 
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-sm p-4">
             <div className="relative w-full max-w-lg bg-white border border-zinc-200 rounded-xl p-6 shadow-2xl flex flex-col gap-4">
@@ -42,7 +41,11 @@ export function ProductUI({isCartOpen, setisCartOpen, productClicked, setproduct
                 <button className="px-6 py-3 bg-emerald-600 hover:bg-emerald-500 text-white font-semibold rounded-lg shadow-md transition-all cursor-pointer">Buy Now</button>
             </div>
         </div>
-        </div>} 
+        </div>}
+
+        {/* Display Cart*/}
+
+        {/* Display products */}
         <div className="flex gap-3">{productList.map((product: ProductType) => (
             <div className="w-64 bg-white border border-zinc-200 rounded-lg p-4 mx-5 shadow-sm flex flex-col gap-3 hover:cursor-pointer">
                 <div onClick = {() => {setproductClicked(true), dispatch(selectProduct(product.id))}} className="w-full h-48 bg-zinc-100 rounded flex items-center justify-center overflow-hidden">

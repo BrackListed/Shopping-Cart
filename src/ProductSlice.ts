@@ -16,9 +16,7 @@ const StoreProducts: ProductType[] = [
     {id: 5, name: "School Bag", img: "Products/School_Bag.png", price: 4500},
 ]
 
-const userCart: ProductType[] = [
-    
-]
+const userCart: ProductType[] = JSON.parse(localStorage.getItem("cart-storage") ?? "[]") ?? []
 
 const initialProductState = {
     products: StoreProducts,
