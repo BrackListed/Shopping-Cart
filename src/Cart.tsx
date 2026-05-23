@@ -12,7 +12,7 @@ export function Cart(){
     const price = userCart.reduce((accumulator, item) => accumulator + item.price, 0)
     const dispatch = useDispatch()
     return(
-        <div id = "container" className="w-full h-screen overflow-hidden flex flex-col bg-white text-zinc-900">
+        <div id = "container" className="w-full min-h-screen overflow-hidden flex flex-col bg-white text-zinc-900">
             <div id = "header" className="flex justify-between px-6 md:px-12 items-center border-b bg-zinc-900 border-zinc-100">
                 <Link to = "/"><div className="text-sm font-medium text-zinc-50 hover:text-zinc-200 transition-colors cursor-pointer flex items-center gap-2 group"><ArrowLeft></ArrowLeft><span className="group-hover:-translate-x-1 transition-transform">Return to Store</span></div></Link>
                 <img src = "/logo.png" alt = "Store logo BRACKLISTED" className="h-30"></img>
