@@ -2,8 +2,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import type { RootState } from "./Store";
 import { ArrowLeft } from 'lucide-react';
-import { removeFromCart } from "./ProductSlice";
-import { addToCart } from "./ProductSlice";
+import { removeFromCart, addToCart, addQty, removeQty } from "./ProductSlice";
+
 
 
 
@@ -11,7 +11,7 @@ import { addToCart } from "./ProductSlice";
 export function Cart(){
     const selectedId = useSelector((state: RootState) => state.Products.selectedId)
     const userCart = useSelector((state: RootState) => state.Cart.cart)
-    const price = userCart.reduce((accumulator, item) => accumulator + item.price, 0)
+    const price = userCart.reduce((accumulator, item) => accumulator + (item.price * item.quantity), 0) //needs to take into account quantity.
     const selectedItem = userCart.find((item) => item.id === selectedId)
     const dispatch = useDispatch()
     return(
@@ -43,7 +43,7 @@ export function Cart(){
                                     <div className="flex items-center bg-zinc-100 border border-zinc-200 rounded-full w-24 h-8 overflow-hidden mt-3">
                                         <button onClick={() => dispatch(removeFromCart(cartItem.id))}className="flex-1 h-full text-zinc-500 hover:bg-zinc-200/60 font-medium text-sm transition-colors cursor-pointer">-</button>
                                         <span className="w-8 text-center text-sm font-bold text-zinc-800 bg-white h-full flex items-center justify-center border-x border-zinc-200/80">{cartItem.quantity}</span>
-                                        <button onClick={() => dispatch(addToCart(cartItem))} className="flex-1 h-full text-zinc-500 hover:bg-zinc-200/60 font-medium text-sm transition-colors cursor-pointer">+</button>
+                                        <button onClick={() => dispatch(addQty(cartItem))} className="flex-1 h-full text-zinc-500 hover:bg-zinc-200/60 font-medium text-sm transition-colors cursor-pointer">+</button>
                                     </div>
                                 </div>
                             </div>
@@ -70,7 +70,7 @@ export function Cart(){
                         <div className="flex flex-col gap-5">
                             <div className="flex justify-between items-center">
                                 <span className="text-xs font-bold uppercase tracking-wider text-zinc-900">TOTAL: </span>
-                                <span className="text-2xl font-black text-zinc-900">₱{price}</span>
+                                <span className="text-2xl font-black text-zinc-900">₱{price}</span>  
                             </div>
                             <button className="w-full bg-zinc-900 hover:bg-zinc-800 text-zinc-50 font-semibold text-sm py-3.5 rounded-xl transition-colors cursor-pointer shadow-sm">CHECKOUT</button>
                         </div>

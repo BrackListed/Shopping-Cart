@@ -56,15 +56,17 @@ const cartSlice =  createSlice({
             state.cart = state.cart.filter((c) => c.id !== action.payload)
             localStorage.setItem("cart-storage", JSON.stringify(state.cart))
         },
-    }
-})
-
-const quantitySlice = createSlice({
-    name: "Quantity",
-    initialState: initialCartState,
-    reducers: {
         addQty: (state, action) => {
-            
+            const selectedItem = state.cart.find((item) => item.id === action.payload.id) //supposed to return the item that satisfies the condition, i.e the item that equals to the individual item it reeturned when it looped through the array
+            if(selectedItem){ //if it returns true, meaning the item perfectly matches
+                selectedItem.quantity += 1
+            } 
+        },
+        removeQty: (state, action) => {
+
+            if(action.payload.quantity < 0){
+                removeFromCart(action.payload)
+            }
         }
     }
 })
@@ -73,8 +75,9 @@ const quantitySlice = createSlice({
 
 
 
+
 export const {selectProduct} = ProductSlice.actions
-export const {addToCart, removeFromCart} = cartSlice.actions
+export const {addToCart, removeFromCart, addQty, removeQty} = cartSlice.actions
 
 export const productReducer = ProductSlice.reducer
 export const cartReducer = cartSlice.reducer
