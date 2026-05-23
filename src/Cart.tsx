@@ -6,8 +6,10 @@ import { removeFromCart } from "./ProductSlice";
 
 
 
+
 export function Cart(){
     const userCart = useSelector((state: RootState) => state.Cart.cart)
+    const price = userCart.reduce((accumulator, item) => accumulator + item.price, 0)
     const dispatch = useDispatch()
     return(
         <div id = "container" className="w-full h-screen overflow-hidden flex flex-col bg-white text-zinc-900">
@@ -27,7 +29,6 @@ export function Cart(){
                             <Link to = "/"><button className="mt-2 px-5 py-2.5 bg-zinc-900 hover:bg-zinc-800 text-white font-medium text-sm rounded-lg shadow-sm transition-all cursor-pointer">Browse Shop</button></Link>
                         </div>
                     </div>}
-
                     {userCart.map((cartItem) => (
                         <div id ="actual-product" className="flex items-center gap-5 py-6 border-b border-zinc-100 w-full justify-between">
                             <div className="flex gap-5">
@@ -39,6 +40,7 @@ export function Cart(){
                             </div>
                             <button onClick = {() => {dispatch(removeFromCart(cartItem.id)), console.log(cartItem.id)}}className="text-xs font-semibold tracking-wider text-zinc-400 hover:text-red-500 transition-colors cursor-pointer px-2 py-1 rounded">Remove</button>
                         </div>
+                        
                     ))}
 
                     {userCart.length > 0 && <div className="w-full max-w-md bg-zinc-50/50 border border-zinc-100 rounded-2xl my-5 p-6 flex flex-col gap-5">
@@ -59,7 +61,7 @@ export function Cart(){
                         <div className="flex flex-col gap-5">
                             <div className="flex justify-between items-center">
                                 <span className="text-xs font-bold uppercase tracking-wider text-zinc-900">TOTAL: </span>
-                                <span className="text-2xl font-black text-zinc-900">₱0</span>
+                                <span className="text-2xl font-black text-zinc-900">₱{price}</span>
                             </div>
                             <button className="w-full bg-zinc-900 hover:bg-zinc-800 text-zinc-50 font-semibold text-sm py-3.5 rounded-xl transition-colors cursor-pointer shadow-sm">CHECKOUT</button>
                         </div>
