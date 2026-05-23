@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import type { RootState } from "./Store";
 import { ArrowLeft } from 'lucide-react';
 import { removeFromCart } from "./ProductSlice";
+import { addToCart } from "./ProductSlice";
 
 
 
@@ -37,9 +38,9 @@ export function Cart(){
                                     <p className="font-bold text-zinc-900 text-base tracking-tight leading-tight">{cartItem.name}</p>
                                     <p className="text-zinc-500 font-medium text-sm">₱{cartItem.price}</p>
                                     <div className="flex items-center bg-zinc-100 border border-zinc-200 rounded-full w-24 h-8 overflow-hidden mt-3">
-                                        <button className="flex-1 h-full text-zinc-500 hover:bg-zinc-200/60 font-medium text-sm transition-colors cursor-pointer">-</button>
+                                        <button onClick={() => dispatch(removeFromCart(cartItem.id))}className="flex-1 h-full text-zinc-500 hover:bg-zinc-200/60 font-medium text-sm transition-colors cursor-pointer">-</button>
                                         <span className="w-8 text-center text-sm font-bold text-zinc-800 bg-white h-full flex items-center justify-center border-x border-zinc-200/80">1</span>
-                                        <button className="flex-1 h-full text-zinc-500 hover:bg-zinc-200/60 font-medium text-sm transition-colors cursor-pointer">+</button>
+                                        <button onClick={() => dispatch(addToCart(cartItem))} className="flex-1 h-full text-zinc-500 hover:bg-zinc-200/60 font-medium text-sm transition-colors cursor-pointer">+</button>
                                     </div>
                                 </div>
                             </div>

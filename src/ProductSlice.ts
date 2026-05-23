@@ -43,8 +43,13 @@ const cartSlice =  createSlice({
     initialState: initialCartState,
     reducers: {
         addToCart: (state, action) => {
-            state.cart.push(action.payload)
-            localStorage.setItem("cart-storage", JSON.stringify(state.cart))
+            const isExisting = state.cart.some((item) => item.id === action.payload.id)
+            if(!isExisting ){ //if the is Existing doesn't return true, thereby saying the item is not equal to the action.payload, thereby saying it doesn't exist
+                state.cart.push(action.payload) //push
+                localStorage.setItem("cart-storage", JSON.stringify(state.cart))
+            } else{
+                alert("Increase quantity instead by viewing cart page!")
+            }
         },
         removeFromCart: (state, action) => {
             state.cart = state.cart.filter((c) => c.id !== action.payload)
@@ -52,6 +57,18 @@ const cartSlice =  createSlice({
         },
     }
 })
+
+const quantitySlice = createSlice({
+    name: "Quantity",
+    initialState: initialCartState,
+    reducers: {
+        addQty: (state, action) => {
+            //we can set the product that was clicked to hte action.payload so we 
+        }
+    }
+})
+
+
 
 
 
