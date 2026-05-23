@@ -1,5 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 
+
 interface ProductType {
     id: number;
     name: string;
@@ -48,9 +49,10 @@ const cartSlice =  createSlice({
         removeFromCart: (state, action) => {
             state.cart = state.cart.filter((c) => c.id !== action.payload)
             localStorage.setItem("cart-storage", JSON.stringify(state.cart))
-        }
+        },
     }
 })
+
 
 
 export const {selectProduct} = ProductSlice.actions

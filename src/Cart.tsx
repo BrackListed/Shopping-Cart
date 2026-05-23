@@ -12,14 +12,14 @@ export function Cart(){
     const price = userCart.reduce((accumulator, item) => accumulator + item.price, 0)
     const dispatch = useDispatch()
     return(
-        <div id = "container" className="w-full min-h-screen overflow-hidden flex flex-col bg-white text-zinc-900">
+        <div id = "container" className="fixed inset-0 w-full h-full overflow-y-auto flex flex-col bg-white text-zinc-900">
             <div id = "header" className="flex justify-between px-6 md:px-12 items-center border-b bg-zinc-900 border-zinc-100">
                 <Link to = "/"><div className="text-sm font-medium text-zinc-50 hover:text-zinc-200 transition-colors cursor-pointer flex items-center gap-2 group"><ArrowLeft></ArrowLeft><span className="group-hover:-translate-x-1 transition-transform">Return to Store</span></div></Link>
                 <img src = "/logo.png" alt = "Store logo BRACKLISTED" className="h-30"></img>
                 <div className="text-xs font-medium text-zinc-400 tracking-wider uppercase">SHOPPING CART</div>
             </div>
             
-            <div className="w-full px-6 md:px-12 mt-12">
+            <div className="w-full flex-1 px-6 md:px-12 mt-12 pb-16 bg-white">
                 <h1 className="text-3xl font-bold tracking-tight text-zinc-900 border-b border-zinc-100 pb-5">Review your items</h1>
                 <div id = "actual-product-container">
                     {userCart.length <= 0 && <div id = "if-no-product-placeholder">
