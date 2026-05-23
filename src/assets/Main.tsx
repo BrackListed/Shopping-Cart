@@ -13,9 +13,10 @@ interface ProductType {
 type MainProps = {
     productClicked: boolean
     setproductClicked: (value: boolean) => void
+    setAddedProduct: (value: boolean) => void
 }
 
-export function ProductUI({productClicked, setproductClicked}: MainProps) {
+export function ProductUI({productClicked, setproductClicked, setAddedProduct}: MainProps) {
     const selectedId = useSelector((state: RootState) => state.Products.selectedId)
     const dispatch = useDispatch()
     const productList = useSelector((state: RootState) => state.Products.products)
@@ -37,7 +38,9 @@ export function ProductUI({productClicked, setproductClicked}: MainProps) {
 
             <div className="flex items-center justify-evenly mt-2 pt-2 border-t border-zinc-100">
                 <span className="text-2xl font-bold text-zinc-900">₱{selectedProduct?.price}</span>
-                <button onClick = {() => {dispatch(addToCart(selectedProduct))}}className="px-6 py-3 bg-zinc-900 hover:bg-zinc-800 text-white text-xs font-medium rounded duration-150 shadow-sm hover:cursor-pointer hover:outline-gray-400 hover:outline-2 hover:scale-105 transition-all">Add to Cart</button>
+                <button onClick = {() => {dispatch(addToCart(selectedProduct)), setAddedProduct(true), setTimeout(() => {
+                    setAddedProduct(false)
+                }, 1000);}}className="px-6 py-3 bg-zinc-900 hover:bg-zinc-800 text-white text-xs font-medium rounded duration-150 shadow-sm hover:cursor-pointer hover:outline-gray-400 hover:outline-2 hover:scale-105 transition-all">Add to Cart</button>
                 <button className="px-6 py-3 bg-emerald-600 hover:bg-emerald-500 text-white font-semibold rounded-lg shadow-md transition-all cursor-pointer">Buy Now</button>
             </div>
         </div>
@@ -55,7 +58,9 @@ export function ProductUI({productClicked, setproductClicked}: MainProps) {
                     <span onClick = {() => {setproductClicked(true), dispatch(selectProduct(product.id))}} className="text-zinc-900 font-medium text-lg truncate">{product.name}</span>
                     <div className="flex gap-2">
                         <span className="text-zinc-600 font-semibold text-base">₱{product.price}</span>
-                        <button onClick = {() => {dispatch(addToCart(product))}} className="px-3 py-1.5 bg-zinc-900 hover:bg-zinc-800 text-white text-xs font-medium rounded duration-150 shadow-sm hover:cursor-pointer hover:outline-gray-400 hover:outline-2 hover:scale-105 transition-all">Add to Cart</button>
+                        <button onClick = {() => {dispatch(addToCart(product)), setAddedProduct(true), setTimeout(() => {
+                            setAddedProduct(false)
+                        }, 1000);}} className="px-3 py-1.5 bg-zinc-900 hover:bg-zinc-800 text-white text-xs font-medium rounded duration-150 shadow-sm hover:cursor-pointer hover:outline-gray-400 hover:outline-2 hover:scale-105 transition-all">Add to Cart</button>
                     </div>
                 </div>
             </div>

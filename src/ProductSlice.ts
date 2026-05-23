@@ -44,12 +44,13 @@ const cartSlice =  createSlice({
     initialState: initialCartState,
     reducers: {
         addToCart: (state, action) => {
+            const selectedItem = state.cart.find((item) => item.id === action.payload.id)
             const isExisting = state.cart.some((item) => item.id === action.payload.id)
             if(!isExisting ){ //if the is Existing doesn't return true, thereby saying the item is not equal to the action.payload, thereby saying it doesn't exist
                 state.cart.push(action.payload) //push
                 localStorage.setItem("cart-storage", JSON.stringify(state.cart))
             } else{
-                alert("Increase quantity instead by viewing cart page!")
+                selectedItem!.quantity += 1
             }
         },
         removeFromCart: (state, action) => {

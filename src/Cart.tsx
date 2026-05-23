@@ -2,17 +2,15 @@ import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import type { RootState } from "./Store";
 import { ArrowLeft } from 'lucide-react';
-import { removeFromCart, addToCart, addQty, removeQty } from "./ProductSlice";
+import { removeFromCart, addQty, removeQty } from "./ProductSlice";
 
 
 
 
 
 export function Cart(){
-    const selectedId = useSelector((state: RootState) => state.Products.selectedId)
     const userCart = useSelector((state: RootState) => state.Cart.cart)
     const price = userCart.reduce((accumulator, item) => accumulator + (item.price * item.quantity), 0) //needs to take into account quantity.
-    const selectedItem = userCart.find((item) => item.id === selectedId)
     const dispatch = useDispatch()
     return(
         <div id = "container" className="fixed inset-0 w-full h-full overflow-y-auto flex flex-col bg-white text-zinc-900">
