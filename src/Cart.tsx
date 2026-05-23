@@ -70,7 +70,7 @@ export function Cart(){
                                 <span className="text-xs font-bold uppercase tracking-wider text-zinc-900">TOTAL: </span>
                                 <span className="text-2xl font-black text-zinc-900">₱{price}</span>  
                             </div>
-                            <button className="w-full bg-zinc-900 hover:bg-zinc-800 text-zinc-50 font-semibold text-sm py-3.5 rounded-xl transition-colors cursor-pointer shadow-sm">CHECKOUT</button>
+                            <Link to = "/Checkout"><button className="w-full bg-zinc-900 hover:bg-zinc-800 text-zinc-50 font-semibold text-sm py-3.5 rounded-xl transition-colors cursor-pointer shadow-sm">CHECKOUT</button></Link>
                         </div>
                     </div>}
 
