@@ -38,10 +38,34 @@ export function Cart(){
                                 </div>
                             </div>
                             <button onClick = {() => {dispatch(removeFromCart(cartItem.id)), console.log(cartItem.id)}}className="text-xs font-semibold tracking-wider text-zinc-400 hover:text-red-500 transition-colors cursor-pointer px-2 py-1 rounded">Remove</button>
-
-
                         </div>
                     ))}
+
+                    {userCart.length > 0 && <div className="w-full max-w-md bg-zinc-50/50 border border-zinc-100 rounded-2xl my-5 p-6 flex flex-col gap-5">
+                        <h1 className="text-lg font-bold tracking-tight text-zinc-900">Summary:</h1>
+                        <div className="flex flex-col gap-3 border-b border-zinc-100 pb-5">
+                            <div className="flex justify-between items-center text-sm font-medium text-zinc-500">
+                                <span>Items Subtotal:</span>
+                                <span className="text-zinc-900">₱0</span>
+                            </div>
+
+                            <div className="flex justify-between items-center text-sm font-medium text-zinc-500">
+                                <span>Shipping:</span>
+                                <span className="text-emerald-600">Free</span>
+                            </div>
+
+                        </div>
+
+                        <div className="flex flex-col gap-5">
+                            <div className="flex justify-between items-center">
+                                <span className="text-xs font-bold uppercase tracking-wider text-zinc-900">TOTAL: </span>
+                                <span className="text-2xl font-black text-zinc-900">₱0</span>
+                            </div>
+                            <button className="w-full bg-zinc-900 hover:bg-zinc-800 text-zinc-50 font-semibold text-sm py-3.5 rounded-xl transition-colors cursor-pointer shadow-sm">CHECKOUT</button>
+                        </div>
+                    </div>}
+
+
                 </div>
             </div>
         </div>
