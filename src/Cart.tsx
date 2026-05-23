@@ -48,7 +48,7 @@ export function Cart(){
                         <div className="flex flex-col gap-3 border-b border-zinc-100 pb-5">
                             <div className="flex justify-between items-center text-sm font-medium text-zinc-500">
                                 <span>Items Subtotal:</span>
-                                <span className="text-zinc-900">₱0</span>
+                                <span className="text-zinc-900">₱{price}</span>
                             </div>
 
                             <div className="flex justify-between items-center text-sm font-medium text-zinc-500">
