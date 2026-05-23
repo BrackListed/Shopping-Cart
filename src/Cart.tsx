@@ -9,8 +9,10 @@ import { addToCart } from "./ProductSlice";
 
 
 export function Cart(){
+    const selectedId = useSelector((state: RootState) => state.Products.selectedId)
     const userCart = useSelector((state: RootState) => state.Cart.cart)
     const price = userCart.reduce((accumulator, item) => accumulator + item.price, 0)
+    const selectedItem = userCart.find((item) => item.id === selectedId)
     const dispatch = useDispatch()
     return(
         <div id = "container" className="fixed inset-0 w-full h-full overflow-y-auto flex flex-col bg-white text-zinc-900">
@@ -30,6 +32,7 @@ export function Cart(){
                             <Link to = "/"><button className="mt-2 px-5 py-2.5 bg-zinc-900 hover:bg-zinc-800 text-white font-medium text-sm rounded-lg shadow-sm transition-all cursor-pointer">Browse Shop</button></Link>
                         </div>
                     </div>}
+                    {/* how do u set this so that it wont map a new cartitem if that cartitem already exists */}
                     {userCart.map((cartItem) => (
                         <div id ="actual-product" className="flex items-center gap-5 py-6 border-b border-zinc-100 w-full justify-between">
                             <div className="flex gap-5">
@@ -39,12 +42,12 @@ export function Cart(){
                                     <p className="text-zinc-500 font-medium text-sm">₱{cartItem.price}</p>
                                     <div className="flex items-center bg-zinc-100 border border-zinc-200 rounded-full w-24 h-8 overflow-hidden mt-3">
                                         <button onClick={() => dispatch(removeFromCart(cartItem.id))}className="flex-1 h-full text-zinc-500 hover:bg-zinc-200/60 font-medium text-sm transition-colors cursor-pointer">-</button>
-                                        <span className="w-8 text-center text-sm font-bold text-zinc-800 bg-white h-full flex items-center justify-center border-x border-zinc-200/80">1</span>
+                                        <span className="w-8 text-center text-sm font-bold text-zinc-800 bg-white h-full flex items-center justify-center border-x border-zinc-200/80">{cartItem.quantity}</span>
                                         <button onClick={() => dispatch(addToCart(cartItem))} className="flex-1 h-full text-zinc-500 hover:bg-zinc-200/60 font-medium text-sm transition-colors cursor-pointer">+</button>
                                     </div>
                                 </div>
                             </div>
-                            <button onClick = {() => {dispatch(removeFromCart(cartItem.id)), console.log(cartItem.id)}}className="text-xs font-semibold tracking-wider text-zinc-400 hover:text-red-500 transition-colors cursor-pointer px-2 py-1 rounded">Remove</button>
+                            <button onClick = {() => {dispatch(removeFromCart(cartItem.id))}}className="text-xs font-semibold tracking-wider text-zinc-400 hover:text-red-500 transition-colors cursor-pointer px-2 py-1 rounded">Remove</button>
                         </div>
                         
                     ))}
