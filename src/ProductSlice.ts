@@ -16,7 +16,9 @@ interface ProductTypeTest {
 
 const productUrl = ('https://fakestoreapi.com/products')
 
+
 export const useFetchedProduct = () => {
+    const [isLoading, setisLoading] = useState(true)
     const dispatch = useDispatch()
     const [fetchedProducts, setFetchedProducts] = useState<ProductTypeTest[]>([])
     useEffect(() => {
@@ -30,13 +32,13 @@ export const useFetchedProduct = () => {
                 }
             ))
             setFetchedProducts(productwithQuantity)
+            setisLoading(false)
         }
         fetchProducts()
     }, [])
     dispatch(setProduct(fetchedProducts))
-    return fetchedProducts;
+    return {fetchedProducts, isLoading};
 }
-
 
 
 
@@ -99,7 +101,6 @@ const cartSlice =  createSlice({
         }
     }
 })
-
 
 
 
