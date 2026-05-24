@@ -7,7 +7,6 @@ import { removeFromCart, addQty, removeQty } from "./ProductSlice";
 
 
 
-
 export function Cart(){
     const userCart = useSelector((state: RootState) => state.Cart.cart)
     const price = userCart.reduce((accumulator, item) => accumulator + (item.price * item.quantity), 0) //needs to take into account quantity.
@@ -34,10 +33,10 @@ export function Cart(){
                     {userCart.map((cartItem) => (
                         <div id ="actual-product" className="flex items-center gap-5 py-6 border-b border-zinc-100 w-full justify-between">
                             <div className="flex gap-5">
-                                <img src = {cartItem.img} alt = "product-image" className="w-30 h-30 bg-zinc-50 border border-zinc-200/80 rounded-xl justfy-center "></img>
+                                <img src = {cartItem.image} alt = "product-image" className="w-30 h-30 bg-zinc-50 border border-zinc-200/80 rounded-xl justfy-center "></img>
                                 <div id = "name-price" className="flex flex-col gap-3 h-25 justify-start">
-                                    <p className="font-bold text-zinc-900 text-base tracking-tight leading-tight">{cartItem.name}</p>
-                                    <p className="text-zinc-500 font-medium text-sm">₱{cartItem.price}</p>
+                                    <p className="font-bold text-zinc-900 text-base tracking-tight leading-tight">{cartItem.title}</p>
+                                    <p className="text-zinc-500 font-medium text-sm">${cartItem.price}</p>
                                     <div className="flex items-center bg-zinc-100 border border-zinc-200 rounded-full w-24 h-8 overflow-hidden mt-3">
                                         <button onClick={() => dispatch(removeQty(cartItem))}className="flex-1 h-full text-zinc-500 hover:bg-zinc-200/60 font-medium text-sm transition-colors cursor-pointer">-</button>
                                         <span className="w-8 text-center text-sm font-bold text-zinc-800 bg-white h-full flex items-center justify-center border-x border-zinc-200/80">{cartItem.quantity}</span>
@@ -55,7 +54,7 @@ export function Cart(){
                         <div className="flex flex-col gap-3 border-b border-zinc-100 pb-5">
                             <div className="flex justify-between items-center text-sm font-medium text-zinc-500">
                                 <span>Items Subtotal:</span>
-                                <span className="text-zinc-900">₱{price}</span>
+                                <span className="text-zinc-900">${price}</span>
                             </div>
 
                             <div className="flex justify-between items-center text-sm font-medium text-zinc-500">
@@ -68,7 +67,7 @@ export function Cart(){
                         <div className="flex flex-col gap-5">
                             <div className="flex justify-between items-center">
                                 <span className="text-xs font-bold uppercase tracking-wider text-zinc-900">TOTAL: </span>
-                                <span className="text-2xl font-black text-zinc-900">₱{price}</span>  
+                                <span className="text-2xl font-black text-zinc-900">${price}</span>  
                             </div>
                             <Link to = "/Checkout"><button className="w-full bg-zinc-900 hover:bg-zinc-800 text-zinc-50 font-semibold text-sm py-3.5 rounded-xl transition-colors cursor-pointer shadow-sm">CHECKOUT</button></Link>
                         </div>
