@@ -3,13 +3,6 @@ import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 
 
-interface ProductType {
-    id: number;
-    name: string;
-    img: string;
-    price: number;
-    quantity: number;
-}
 
 interface ProductTypeTest {
     id: number;
@@ -18,6 +11,7 @@ interface ProductTypeTest {
     description: string;
     category: string;
     image: string
+    quantity: number;
 }
 
 const productUrl = ('https://fakestoreapi.com/products')
@@ -29,7 +23,13 @@ export const useFetchedProduct = () => {
         const fetchProducts = async() => {
             const response = await(fetch(productUrl))
             const tempFetchedProduct = await(response.json()) as ProductTypeTest[]
-            setFetchedProducts(tempFetchedProduct)
+            const productwithQuantity = tempFetchedProduct.map((product: ProductTypeTest) => (
+                {
+                    ...product, 
+                    quantity: 1
+                }
+            ))
+            setFetchedProducts(productwithQuantity)
         }
         fetchProducts()
     }, [])
@@ -38,18 +38,12 @@ export const useFetchedProduct = () => {
 }
 
 
-const StoreProducts: ProductType[] = [
-    {id: 1, name: "Air Conditioner", img: "Products/Air_Conditioner.png", price: 8000, quantity: 1},
-    {id: 2, name: "Ceiling Fan", img: "Products/Ceiling_Fan.png", price: 5000, quantity: 1},
-    {id: 3, name: "Gaming Laptop", img: "Products/Gaming_Laptop.png", price: 50000, quantity: 1},
-    {id: 4, name: "Pressure Cooker", img: "Products/Pressure_Cooker.png", price: 2000, quantity: 1},
-    {id: 5, name: "School Bag", img: "Products/School_Bag.png", price: 4500, quantity: 1},
-]
 
-const userCart: ProductType[] = JSON.parse(localStorage.getItem("cart-storage") ?? "[]") ?? []
+
+const userCart: ProductTypeTest[] = JSON.parse(localStorage.getItem("cart-storage") ?? "[]") ?? []
 
 const initialProductState = {
-    products: StoreProducts,
+    products: [] as ProductTypeTest[],
     selectedId: 0
 }
 
