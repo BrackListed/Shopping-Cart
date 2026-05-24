@@ -32,7 +32,10 @@ export function Header({searchQuery, setSearchQuery, suggestions}: HeaderProps) 
           <input onChange = {(e) => setSearchQuery(e.target.value)}placeholder = "Search for an item..." className='flex-1 h-10 px-4 rounded-l bg-white text-zinc-900 outline-none focus-visible: ring-4 focus-visible:ring-slate-600'></input>
           {(suggestions.length > 0 && searchQuery.length > 0) && <div className="absolute top-full left-0 w-full mt-1 bg-white border border-zinc-200 rounded-lg shadow-xl overflow-hidden z-50 flex flex-col">
             {suggestions.map((product) => (
-              <div className='px-4 py-3 text-zinc-800 text-sm font-medium hover:bg-zinc-100 border-b border-zinc-100 last:border-b-0 cursor-pointer flex items-center gap-3 transition-colors duration-150'>{product.title}</div>
+              <div className='px-4 py-3 text-zinc-800 text-sm font-medium hover:bg-zinc-100 border-b border-zinc-100 last:border-b-0 cursor-pointer flex items-center gap-3 transition-colors duration-150'>
+                <img src={product.image} className="w-6 h-6 object-contain mix-blend-multiply" alt="" />
+                <span className="truncate">{product.title}</span>
+              </div>
             ))}
           </div>}
         </div>
