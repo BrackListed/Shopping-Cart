@@ -1,5 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { useEffect, useState } from "react";
+import { useDispatch } from "react-redux";
 
 
 interface ProductType {
@@ -22,8 +23,8 @@ interface ProductTypeTest {
 const productUrl = ('https://fakestoreapi.com/products')
 
 export const useFetchedProduct = () => {
+    const dispatch = useDispatch()
     const [fetchedProducts, setFetchedProducts] = useState<ProductTypeTest[]>([])
-
     useEffect(() => {
         const fetchProducts = async() => {
             const response = await(fetch(productUrl))
@@ -32,7 +33,7 @@ export const useFetchedProduct = () => {
         }
         fetchProducts()
     }, [])
-
+    dispatch(setProduct(fetchedProducts))
     return fetchedProducts;
 }
 
@@ -60,6 +61,9 @@ const ProductSlice = createSlice({
     name: "Product",
     initialState: initialProductState,
     reducers: {
+        setProduct: (state, action) => {
+            state.products = action.payload
+        },
         selectProduct: (state, action) => {
             state.selectedId = action.payload //selected id is equal to the id that was clicked!
         }
@@ -107,8 +111,7 @@ const cartSlice =  createSlice({
 
 
 
-export const {selectProduct} = ProductSlice.actions
+export const {selectProduct, setProduct} = ProductSlice.actions
 export const {addToCart, removeFromCart, addQty, removeQty} = cartSlice.actions
 export const productReducer = ProductSlice.reducer
 export const cartReducer = cartSlice.reducer
-
