@@ -1,6 +1,7 @@
 import { useSelector, useDispatch } from "react-redux"
 import type { RootState } from "../Store"
 import { addToCart, selectProduct } from "../ProductSlice";
+import { useFetchedProduct } from "../ProductSlice";
 
 
 interface ProductType {
@@ -10,6 +11,17 @@ interface ProductType {
     price: number;
 }
 
+
+interface ProductTypeTest {
+    id: number;
+    title: string;
+    price: number;
+    description: string;
+    category: string;
+    image: string
+}
+
+
 type MainProps = {
     productClicked: boolean
     setproductClicked: (value: boolean) => void
@@ -17,6 +29,7 @@ type MainProps = {
 }
 
 export function ProductUI({productClicked, setproductClicked, setAddedProduct}: MainProps) {
+    const mockProducts = useFetchedProduct()
     const selectedId = useSelector((state: RootState) => state.Products.selectedId)
     const dispatch = useDispatch()
     const productList = useSelector((state: RootState) => state.Products.products)
@@ -49,13 +62,13 @@ export function ProductUI({productClicked, setproductClicked, setAddedProduct}: 
         {/* Display Cart*/}
 
         {/* Display products */}
-        <div className="flex gap-3">{productList.map((product: ProductType) => (
+        <div className="flex gap-3">{mockProducts.map((product: ProductTypeTest) => (
             <div className="w-64 bg-white border border-zinc-200 rounded-lg p-4 mx-5 shadow-sm flex flex-col gap-3 hover:cursor-pointer">
                 <div onClick = {() => {setproductClicked(true), dispatch(selectProduct(product.id))}} className="w-full h-48 bg-zinc-100 rounded flex items-center justify-center overflow-hidden">
-                    <img src = {product.img} className="w-full h-full object-cover" />
+                    <img src = {product.image} className="w-full h-full object-cover" />
                 </div>
                 <div className="flex flex-col gap-1">
-                    <span onClick = {() => {setproductClicked(true), dispatch(selectProduct(product.id))}} className="text-zinc-900 font-medium text-lg truncate">{product.name}</span>
+                    <span onClick = {() => {setproductClicked(true), dispatch(selectProduct(product.id))}} className="text-zinc-900 font-medium text-lg truncate">{product.title}</span>
                     <div className="flex gap-2">
                         <span className="text-zinc-600 font-semibold text-base">₱{product.price}</span>
                         <button onClick = {() => {dispatch(addToCart(product)), setAddedProduct(true), setTimeout(() => {

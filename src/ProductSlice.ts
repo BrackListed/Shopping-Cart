@@ -1,4 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
+import { useEffect, useState } from "react";
 
 
 interface ProductType {
@@ -7,6 +8,32 @@ interface ProductType {
     img: string;
     price: number;
     quantity: number;
+}
+
+interface ProductTypeTest {
+    id: number;
+    title: string;
+    price: number;
+    description: string;
+    category: string;
+    image: string
+}
+
+const productUrl = ('https://fakestoreapi.com/products')
+
+export const useFetchedProduct = () => {
+    const [fetchedProducts, setFetchedProducts] = useState<ProductTypeTest[]>([])
+
+    useEffect(() => {
+        const fetchProducts = async() => {
+            const response = await(fetch(productUrl))
+            const tempFetchedProduct = await(response.json()) as ProductTypeTest[]
+            setFetchedProducts(tempFetchedProduct)
+        }
+        fetchProducts()
+    }, [])
+
+    return fetchedProducts;
 }
 
 
@@ -45,7 +72,7 @@ const cartSlice =  createSlice({
     reducers: {
         addToCart: (state, action) => {
             const selectedItem = state.cart.find((item) => item.id === action.payload.id)
-            const isExisting = state.cart.some((item) => item.id === action.payload.id)
+            const isExisting = state.cart.some((item) => item.id === action.payload.id) 
             if(!isExisting ){ //if the is Existing doesn't return true, thereby saying the item is not equal to the action.payload, thereby saying it doesn't exist
                 state.cart.push(action.payload) //push
                 localStorage.setItem("cart-storage", JSON.stringify(state.cart))
@@ -82,7 +109,6 @@ const cartSlice =  createSlice({
 
 export const {selectProduct} = ProductSlice.actions
 export const {addToCart, removeFromCart, addQty, removeQty} = cartSlice.actions
-
 export const productReducer = ProductSlice.reducer
 export const cartReducer = cartSlice.reducer
 
