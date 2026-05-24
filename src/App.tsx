@@ -2,6 +2,8 @@ import { useState } from "react";
 import { Header } from "./assets/Header";
 import { ProductUI } from "./assets/Main";
 import { useFetchedProduct } from "./ProductSlice";
+import { useSelector } from "react-redux";
+import type { RootState } from "./Store";
 
 export default function App() {
   const mockProducts = useFetchedProduct()
@@ -11,6 +13,9 @@ export default function App() {
   const suggestions = mockProducts.fetchedProducts.filter((p) => (
     p.title.toLowerCase().includes(searchQuery.toLowerCase()) //if any of the products has a title that matches the searchquery
   ))
+  const productList = useSelector((state: RootState) => state.Products.products)
+  const selectedId = useSelector((state: RootState) => state.Products.selectedId)
+  const selectedProduct = productList.find((product) => product.id === selectedId)
   return(
     
     <div className="flex flex-col gap-5">
@@ -22,11 +27,13 @@ export default function App() {
       searchQuery = {searchQuery}
       setSearchQuery = {setSearchQuery}
       suggestions = {suggestions}
+      setproductClicked = {setproductClicked}
       />
       <ProductUI
       setAddedProduct = {setAddedProduct}
       productClicked = {productClicked}
       setproductClicked= {setproductClicked}
+      selectedProduct = {selectedProduct}
       />
     </div>
   )

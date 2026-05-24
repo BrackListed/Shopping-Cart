@@ -20,14 +20,12 @@ type MainProps = {
     productClicked: boolean
     setproductClicked: (value: boolean) => void
     setAddedProduct: (value: boolean) => void
+    selectedProduct: ProductTypeTest | undefined
 }
 
-export function ProductUI({productClicked, setproductClicked, setAddedProduct}: MainProps) {
+export function ProductUI({productClicked, setproductClicked, setAddedProduct, selectedProduct}: MainProps) {
     const mockProducts = useFetchedProduct()
-    const selectedId = useSelector((state: RootState) => state.Products.selectedId)
     const dispatch = useDispatch()
-    const productList = useSelector((state: RootState) => state.Products.products)
-    const selectedProduct = productList.find((product) => product.id === selectedId)
     return(
     <div>
         {/* For when product is clicked, product popup */}
