@@ -36,7 +36,7 @@ export const useFetchedProduct = () => {
         }
         fetchProducts()
     }, [])
-    dispatch(setProduct(fetchedProducts))
+    dispatch(setProduct(fetchedProducts)) //refer to the reducer that set the product to action payload
     return {fetchedProducts, isLoading};
 }
 
@@ -58,13 +58,16 @@ const ProductSlice = createSlice({
     initialState: initialProductState,
     reducers: {
         setProduct: (state, action) => {
-            state.products = action.payload
+            state.products = action.payload //where the api products took over
         },
         selectProduct: (state, action) => {
             state.selectedId = action.payload //selected id is equal to the id that was clicked!
+        }, 
         }
     }
-})
+)
+
+
 
 const cartSlice =  createSlice({
     name: "Cart",

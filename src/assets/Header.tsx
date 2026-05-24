@@ -2,8 +2,7 @@ import type { RootState } from '../Store';
 import { ShoppingCart } from 'lucide-react'
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from "react-router-dom";
-import { selectProduct, useFetchedProduct } from '../ProductSlice';
-import { addToCart } from '../ProductSlice';
+import { selectProduct } from '../ProductSlice';
 
 interface ProductTypeTest {
     id: number;

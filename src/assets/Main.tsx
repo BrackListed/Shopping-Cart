@@ -1,6 +1,7 @@
 import { useDispatch } from "react-redux"
 import { addToCart, selectProduct } from "../ProductSlice";
 import { useFetchedProduct } from "../ProductSlice";
+import { Link } from "react-router-dom";
 
 
 
@@ -46,7 +47,7 @@ export function ProductUI({productClicked, setproductClicked, setAddedProduct, s
                 <button onClick = {() => {dispatch(addToCart(selectedProduct)), setAddedProduct(true), setTimeout(() => {
                     setAddedProduct(false)
                 }, 1000);}}className="px-6 py-3 bg-zinc-900 hover:bg-zinc-800 text-white text-xs font-medium rounded duration-150 shadow-sm hover:cursor-pointer hover:outline-gray-400 hover:outline-2 hover:scale-105 transition-all">Add to Cart</button>
-                <button className="px-6 py-3 bg-emerald-600 hover:bg-emerald-500 text-white font-semibold rounded-lg shadow-md transition-all cursor-pointer">Buy Now</button>
+                <Link to = "/Checkout"><button className="px-6 py-3 bg-emerald-600 hover:bg-emerald-500 text-white font-semibold rounded-lg shadow-md transition-all cursor-pointer">Buy Now</button></Link>
             </div>
         </div>
         </div>}
