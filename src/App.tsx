@@ -34,6 +34,7 @@ export default function App() {
       productClicked = {productClicked}
       setproductClicked= {setproductClicked}
       selectedProduct = {selectedProduct}
+      suggestions = {suggestions}
       />
     </div>
   )

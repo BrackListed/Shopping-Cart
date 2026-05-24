@@ -1,5 +1,4 @@
-import { useSelector, useDispatch } from "react-redux"
-import type { RootState } from "../Store"
+import { useDispatch } from "react-redux"
 import { addToCart, selectProduct } from "../ProductSlice";
 import { useFetchedProduct } from "../ProductSlice";
 
@@ -21,9 +20,10 @@ type MainProps = {
     setproductClicked: (value: boolean) => void
     setAddedProduct: (value: boolean) => void
     selectedProduct: ProductTypeTest | undefined
+    suggestions: ProductTypeTest[]
 }
 
-export function ProductUI({productClicked, setproductClicked, setAddedProduct, selectedProduct}: MainProps) {
+export function ProductUI({productClicked, setproductClicked, setAddedProduct, selectedProduct, suggestions}: MainProps) {
     const mockProducts = useFetchedProduct()
     const dispatch = useDispatch()
     return(
@@ -55,7 +55,7 @@ export function ProductUI({productClicked, setproductClicked, setAddedProduct, s
 
         {/* Display products */}
         {mockProducts.isLoading && <div className="flex items-center justify-center min-h-[50vh] w-full text-zinc-500 text-2xl font-semibold tracking-wide animate-pulse">Loading Products...</div>}
-        <div className="flex gap-3 min-w-382  w-full flex-wrap">{mockProducts.fetchedProducts.map((product: ProductTypeTest) => (
+        <div className="flex gap-3 min-w-382  w-full flex-wrap">{suggestions.map((product: ProductTypeTest) => (
             <div className="w-64 bg-white border border-zinc-200 rounded-lg p-4 mx-5 shadow-sm flex flex-col gap-3 hover:cursor-pointer">
                 <div onClick = {() => {setproductClicked(true), dispatch(selectProduct(product.id))}} className="w-full h-48 bg-zinc-100 rounded flex items-center justify-center overflow-hidden">
                     <img src = {product.image} className="w-full h-full object-cover" />
