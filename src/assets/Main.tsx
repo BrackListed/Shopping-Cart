@@ -57,7 +57,7 @@ export function ProductUI({productClicked, setproductClicked, setAddedProduct}: 
 
         {/* Display products */}
         {mockProducts.isLoading && <div className="flex items-center justify-center min-h-[50vh] w-full text-zinc-500 text-2xl font-semibold tracking-wide animate-pulse">Loading Products...</div>}
-        <div className="flex gap-3 w-382 flex-wrap">{mockProducts.fetchedProducts.map((product: ProductTypeTest) => (
+        <div className="flex gap-3 min-w-382  w-full flex-wrap">{mockProducts.fetchedProducts.map((product: ProductTypeTest) => (
             <div className="w-64 bg-white border border-zinc-200 rounded-lg p-4 mx-5 shadow-sm flex flex-col gap-3 hover:cursor-pointer">
                 <div onClick = {() => {setproductClicked(true), dispatch(selectProduct(product.id))}} className="w-full h-48 bg-zinc-100 rounded flex items-center justify-center overflow-hidden">
                     <img src = {product.image} className="w-full h-full object-cover" />

@@ -1,12 +1,16 @@
 import { useState } from "react";
 import { Header } from "./assets/Header";
 import { ProductUI } from "./assets/Main";
-
-
+import { useFetchedProduct } from "./ProductSlice";
 
 export default function App() {
+  const mockProducts = useFetchedProduct()
   const [productClicked, setproductClicked] = useState(false)
   const [addedProduct, setAddedProduct] = useState(false)
+  const [searchQuery, setSearchQuery] = useState("")
+  const suggestions = mockProducts.fetchedProducts.filter((p) => (
+    p.title.toLowerCase().includes(searchQuery.toLowerCase()) //if any of the products has a title that matches the searchquery
+  ))
   return(
     
     <div className="flex flex-col gap-5">
@@ -15,6 +19,9 @@ export default function App() {
       <p className="m-0 font-sans">Item added to cart</p>
     </div>
       <Header
+      searchQuery = {searchQuery}
+      setSearchQuery = {setSearchQuery}
+      suggestions = {suggestions}
       />
       <ProductUI
       setAddedProduct = {setAddedProduct}
